@@ -9,6 +9,8 @@
 #include "lcd-display.h"
 #include <TouchScreen.h>
 
+#include "usbcheck.h"
+
 #define YP A3 // must be an analog pin, use "An" notation!
 #define XM A2 // must be an analog pin, use "An" notation!
 #define YM 9  // can be a digital pin
@@ -215,11 +217,15 @@ byte tempreading = 0;
 
 void usbscan();
 
+USBCHECK usb;
+
 void setup()
 {
   Serial.begin(115200); // Setupserial interface
 
   tft.reset();
+
+  usb.sanitycheck(Serial);
 
   uint16_t identifier = tft.readID();
   identifier = 0x9341;
