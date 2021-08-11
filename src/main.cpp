@@ -219,13 +219,38 @@ void usbscan();
 
 USBCHECK usb;
 
-void setup()
+void setup() {
+  Serial.begin(115200); // Setupserial interface
+
+  tft.reset();
+
+  usb.sanitycheck(Serial);
+  usb.initpinmode();
+  
+  usb.findactiveconnection(Serial);
+
+  uint16_t identifier = tft.readID();
+  identifier = 0x9341;
+
+  tft.begin(identifier);
+  tft.setRotation(1);
+  tft.fillScreen(BLACK);
+
+  pinMode(13, OUTPUT);
+
+  
+
+}
+
+void oldsetup()
 {
   Serial.begin(115200); // Setupserial interface
 
   tft.reset();
 
   usb.sanitycheck(Serial);
+
+  usb.findactiveconnection(Serial);
 
   uint16_t identifier = tft.readID();
   identifier = 0x9341;
