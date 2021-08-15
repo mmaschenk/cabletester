@@ -182,9 +182,43 @@ void MiniDrawable::drawMeAt(int x, int y, bool highlight = false) {
 
 void MicroDrawable::drawMeAtDefaultPosition() {
   Serial.println("Drawing at default position");
-  this->tft->USB_micro_template();
+
+  tft->setTextColor(tft->WHITE);
+  tft->setTextSize(0);
+  tft->setCursor(255, 15);
+  tft->println("USB Micro");
+  tft->setCursor(260, 25);
+  tft->println(" v2.0");
+
+  drawMeAt(264, 70);
 };
 
 void MicroDrawable::drawMeAt(int x, int y, bool highlight = false) {
-  this->tft->USB_micro_template(x,y);
+
+  tft->fillRoundRect(x+22, y+1, 12, 109, 8, tft->BLUE);
+  tft->fillRect(x+22, y+1, 6, 4, tft->BLUE); 
+  tft->fillRect(x+22, y+105, 6, 4, tft->BLUE); 
+
+  tft->drawRoundRect(x+9, y, 27, 111, 10, tft->GREEN);
+  tft->drawRoundRect(x+10, y+1, 25, 109, 8, tft->GREEN);
+  tft->fillRect(x+9, y, 6, 111, tft->BLACK);
+  tft->drawLine(x, y+15, x+15, y, tft->GREEN); 
+  tft->drawLine(x+1, y+15, x+16, y, tft->GREEN);
+  tft->drawLine(x, y+94, x+15, y+109, tft->GREEN);
+  tft->drawLine(x+1, y+94, x+16, y+109, tft->GREEN);
+  tft->drawLine(x, y+15, x, y+94, tft->GREEN);
+  tft->drawLine(x+1, y+15, x+1, y+94, tft->GREEN);
+
+  if (highlight) {
+    tft->fillRect(x+2, y+15, 20, 80, tft->RED);
+    tft->fillTriangle(x+3, y+14, x+15, y+14, x+15, y+2, tft->RED );
+    tft->fillRect(x+16, y+2, 6, 13, tft->RED);
+
+    tft->fillTriangle(x+3, y+95, x+15, y+107, x+15, y+95, tft->RED );
+    tft->fillRect(x+16, y+95, 6, 14, tft->RED);
+  }
+
+  for (int yc = 0; yc <= 80; yc += 20) {
+    tft->fillRect(x+21, y+12+yc, 4, 8, tft->YELLOW);
+  }
 };

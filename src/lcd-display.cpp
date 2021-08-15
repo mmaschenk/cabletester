@@ -1,49 +1,5 @@
 #include "lcd-display.h"
 
-void LCD_DISPLAY::USB_micro_template(int x, int y, bool highlight = false) {
-  fillRoundRect(x+22, y+1, 12, 109, 8, BLUE);
-  fillRect(x+22, y+1, 6, 4, BLUE); 
-  fillRect(x+22, y+105, 6, 4, BLUE); 
-
-  drawRoundRect(x+9, y, 27, 111, 10, GREEN);
-  drawRoundRect(x+10, y+1, 25, 109, 8, GREEN);
-  fillRect(x+9, y, 6, 111, BLACK);
-  drawLine(x, y+15, x+15, y, GREEN); 
-  drawLine(x+1, y+15, x+16, y, GREEN);
-  drawLine(x, y+94, x+15, y+109, GREEN);
-  drawLine(x+1, y+94, x+16, y+109, GREEN);
-  drawLine(x, y+15, x, y+94, GREEN);
-  drawLine(x+1, y+15, x+1, y+94, GREEN);
-
-  if (highlight) {
-    fillRect(x+2, y+15, 20, 80, RED);
-    fillTriangle(x+3, y+14, x+15, y+14, x+15, y+2, RED );
-    fillRect(x+16, y+2, 6, 13, RED);
-
-    fillTriangle(x+3, y+95, x+15, y+107, x+15, y+95, RED );
-    fillRect(x+16, y+95, 6, 14, RED);
-  }
-
-  for (int yc = 0; yc <= 80; yc += 20) {
-    fillRect(x+21, y+12+yc, 4, 8, YELLOW);
-  }
-}
-
-void LCD_DISPLAY::USB_micro_template()
-{
-  // Draws the connector and pins for USB Micro-b on RHS of screen
-
-  setTextColor(WHITE);
-  setTextSize(0);
-  setCursor(255, 15);
-  println("USB Micro");
-  setCursor(260, 25);
-  println(" v2.0");
-
-  USB_micro_template(264, 70);
-
-}
-
 
 void LCD_DISPLAY::splashscreen()
 {

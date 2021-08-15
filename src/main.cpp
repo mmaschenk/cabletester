@@ -525,7 +525,7 @@ void usbAusbMicrocable()
 
         tft.fillScreen(BLACK); // Firstly Clear the Screen of any items
         //tft.USB2_A_template();
-        tft.USB_micro_template();
+       //tft.USB_micro_template();
         screendrawn = true; // Flag set to indicate screen drawn for this configuration
 
         usbcable_ctr = 0;
@@ -838,7 +838,7 @@ void usbA3usbMicrocable()
 
         tft.fillScreen(BLACK); // Firstly Clear the Screen of any items
         //tft.USB3_A_template();
-        tft.USB_micro_template();
+        //tft.USB_micro_template();
         screendrawn = true; // Flag set to indicate screen drawn for this configuration
 
         usbcable_ctr = 0;
@@ -1249,7 +1249,7 @@ void usbCusbMicrocable()
 
         tft.fillScreen(BLACK); // Firstly Clear the Screen of any items
         //tft.USBC_Left_template();
-        tft.USB_micro_template();
+        //tft.USB_micro_template();
         screendrawn = true; // Flag set to indicate screen drawn for this configuration
 
         usbcable_ctr = 0;
