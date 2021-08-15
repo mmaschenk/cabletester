@@ -4,12 +4,23 @@
  *  Final Instructable Version 1
  */
 
+
+#include "main.h"
+#include "usbdrawable.h"
+
 #include <Adafruit_GFX.h>    // Core graphics library
 // #include <Adafruit_TFTLCD.h> // Hardware-specific library
+
+
 #include "lcd-display.h"
 #include <TouchScreen.h>
 
 #include "usbcheck.h"
+
+#include <stdarg.h>
+
+void pr(Print &response, const char *fmt, ... );
+
 
 #define YP A3 // must be an analog pin, use "An" notation!
 #define XM A2 // must be an analog pin, use "An" notation!
@@ -38,12 +49,14 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 // Assign human-readable names to some common 16-bit color values:
 int BLACK = 0x0000;
 int BLUE = 0x001F;
-int MAGENTA = 0xF800;
+int MAGENTA = 0xF81F;
 int GREEN = 0x07E0;
 int CYAN = 0x07FF;
-int RED = 0xF81F;
+int RED = 0xF800;
 int YELLOW = 0xFFE0;
 int WHITE = 0xFFFF;
+
+uint16_t connectorcolor[6] = { 0x001F, 0xF800, 0x07E0, 0x07FF, 0xF81F, 0xFFE0 };
 
 int scangraphic = 0; // Pointer to coordinates of graphic being printed within portscan array
 
@@ -207,7 +220,7 @@ byte location = 1;
 
 byte puzzlenum = 1; // These identifier for 5 puzzles stored in memory
 
-byte sudoku[82][14];
+//byte sudoku[82][14];
 
 byte touchlocation = 0; // Used to track the array value that the stylis is closest to in the Sudoku 9x9 framework
 
@@ -219,10 +232,25 @@ void usbscan();
 
 USBCHECK usb;
 
-void setup() {
+//CLeftDrawable cleftdraw(tft);
+//CRightDrawable crightdraw(tft);
+//A2Drawable a2draw(tft);
+//MiniDrawable minidraw(tft);
+//MicroDrawable microdraw(tft);
+
+
+void newsetup() {
   Serial.begin(115200); // Setupserial interface
 
   tft.reset();
+
+  usb.info[cleft].draw = new CLeftDrawable(tft);
+  usb.info[cright].draw = new CRightDrawable(tft);
+  usb.info[a2left].draw = new A2Drawable(tft);
+  usb.info[a3left].draw = new A3Drawable(tft);
+  usb.info[miniright].draw = new MiniDrawable(tft);
+  usb.info[microright].draw = new MicroDrawable(tft);  
+  
 
   usb.sanitycheck(Serial);
   usb.initpinmode();
@@ -230,6 +258,8 @@ void setup() {
   usb.findactiveconnection(Serial);
 
   uint16_t identifier = tft.readID();
+  Serial.print("Read id ");
+  Serial.println(identifier, 16);
   identifier = 0x9341;
 
   tft.begin(identifier);
@@ -237,16 +267,15 @@ void setup() {
   tft.fillScreen(BLACK);
 
   pinMode(13, OUTPUT);
-
-  
-
 }
+
 
 void oldsetup()
 {
   Serial.begin(115200); // Setupserial interface
 
   tft.reset();
+
 
   usb.sanitycheck(Serial);
 
@@ -303,6 +332,7 @@ void oldsetup()
   tft.splashscreen();
   Serial.println("Ended splashscreen");
 }
+
 
 void drawscreen()
 {
@@ -600,7 +630,7 @@ void usbAusbCcable()
         tft.fillScreen(BLACK); // Firstly Clear the Screen of any items
 
         tft.USB2_A_template();
-        tft.USBC_Right_template();
+        //tft.USBC_Right_template();
         screendrawn = true; // Flag set to indicate screen drawn for this configuration
 
         usbcable_ctr = 0;
@@ -912,7 +942,7 @@ void usbA3usbCcable()
 
         tft.fillScreen(BLACK); // Firstly Clear the Screen of any items
         tft.USB3_A_template();
-        tft.USBC_Right_template();
+        //tft.USBC_Right_template();
         screendrawn = true; // Flag set to indicate screen drawn for this configuration
 
         usbcable_ctr = 0;
@@ -1016,7 +1046,7 @@ void usbCusbCcable()
 
         tft.fillScreen(BLACK); // Firstly Clear the Screen of any items
         tft.USBC_Left_template();
-        tft.USBC_Right_template();
+        //tft.USBC_Right_template();
         screendrawn = true; // Flag set to indicate screen drawn for this configuration
 
         usbcable_ctr = 0;
@@ -1351,25 +1381,236 @@ void usbscan()
   }
 }
 
-void loop()
+enum ScreenState { connectorScreen, textScreen, splashScreen, detectionScreen, NUMSCREENSTATES };
+uint8_t screenstate = detectionScreen;
+uint8_t prevscreenstate = screenstate;
+
+void textstatus(LCD_DISPLAY &tft, USBCHECK &usb) {
+  int8_t pinassignment[MAXIOS+1];
+  int8_t connectorassignment[MAXIOS+1];
+
+  for (int i = 0; i <= MAXIOS; i++) {
+    pinassignment[i] = -1;
+    connectorassignment[i] = -1;
+  }
+
+  for (int connector=0; connector<CONNECTIONS_MAX; connector++) {
+    connectorinfo i = usb.info[connector];
+
+    for (int p=0; p<i.size; p++) {
+      pininfo pin = i.pin[p];
+      if (pinassignment[pin.pinnumber] == -1) {
+        pinassignment[pin.pinnumber] = p;
+        connectorassignment[pin.pinnumber] = connector;
+      } else {
+        //pr(response, "Dual use:  [%s] @ [%d]\n", pin.function, pin.pinnumber);
+        int i = pin.pinnumber;
+        connectorinfo cc = usb.info[connectorassignment[i]];
+        pininfo cp = cc.pin[pinassignment[i]];
+        //pr(response, "Dual use: [%s] @ [%d]: Already assigned to:  [%s] of [%s]\n", 
+        //    pin.function, i, cp.function, cc.name);       
+      }
+    }    
+  }
+
+  #define ROWNUM 25
+
+  tft.setCursor(0,0);
+  int active = 0;
+  for (int i=0; i<MAXIOS+1; i++) {
+    if (pinassignment[i] != -1) {
+      connectorinfo cc = usb.info[connectorassignment[i]];
+      pininfo cp = cc.pin[pinassignment[i]];
+      //pr(response, "Pin [%d] is connected to [%s] of [%s]\n", 
+      //    i, cp.function, cc.name);
+      //uint8_t xrow = (i - FIRSTPIN) / ROWNUM;  
+      uint8_t x = active / ROWNUM * 160;
+      uint8_t y = active % ROWNUM * 10;
+      tft.setTextColor(connectorcolor[connectorassignment[i]]);
+      tft.setCursor(x, y);
+      tft.print(i);
+      tft.print(" ");
+      //tft.print(cc.name);
+      //tft.print(" ");
+      tft.print(cp.function);
+      active++;
+
+
+    } else {
+      //pr(response, "Pin [%d] is unconnected\n", i);
+    }
+  }
+}
+
+int detectionCounter = 0;
+
+void detectionView(LCD_DISPLAY &tft, USBCHECK &usb, boolean &continuance ) {
+  Serial.println((int)continuance);
+  if (!continuance) {
+    tft.fillScreen(BLACK);
+    /*tft.USBC_Left_template();
+    tft.USBC_Right_template();*/
+    
+    //tft.USB_mini_template();
+    //tft.USB_mini_template(190,70);
+
+    
+    pr(Serial, "Drawing left...");
+    //usb.info[cleft].draw->drawMeAtDefaultPosition();
+    //usb.info[a3left].draw->drawMeAtDefaultPosition();
+    //usb.info[a2left].draw->drawMeAtDefaultPosition();
+    pr(Serial, "done.\n");
+
+    pr(Serial, "Drawing right...");    
+    //usb.info[cright].draw->drawMeAtDefaultPosition();
+    //usb.info[miniright].draw->drawMeAtDefaultPosition();
+    //usb.info[microright].draw->drawMeAtDefaultPosition();
+    pr(Serial, "done.\n");
+    
+
+  /*
+    tft.USBC_template(10, 0);
+    tft.USB2_A_template(40,0);
+    tft.USB3_A_template(80, 0);
+    tft.USB_micro_template(120,0);
+    tft.USB_mini_template(170,0);    */
+  }
+
+  int left = (detectionCounter / LEFTSIDECONNECTIONS) % LEFTSIDECONNECTIONS;
+  int right = detectionCounter % RIGHTSIDECONNECTIONS;
+
+  pr(Serial, "height = %d. Width = %d\n", tft.height(),tft.width());
+
+  pr(Serial, "%d -> (%d, %d)\n", detectionCounter, left, right);
+  tft.fillRect(0, 0, 70, tft.height(), BLACK);
+  usb.info[left].draw->drawMeAtDefaultPosition();
+  tft.fillRect(tft.width()-70, 0, 70, tft.height(), BLACK);
+  usb.info[CONNECTIONSPERSIDE+right].draw->drawMeAtDefaultPosition();
+
+
+  delay(2000);
+  detectionCounter++;
+
+  continuance = true; 
+}
+
+uint8_t touchscreenArmed = 1;
+
+void newloop()
 {
+  TSPoint p = ts.getPoint();
+  pinMode(XM, OUTPUT);  // Bug in TS library: restore these two pins to OUTPUT!
+  pinMode(YP, OUTPUT);
 
-  // screendrawn = false;
+  if (p.z > ts.pressureThreshhold) {
+    if (touchscreenArmed) {
+      Serial.print("Z = ");
+      Serial.print(p.z);
+      Serial.print(" X,Y = ");
+      Serial.print(p.x);
+      Serial.print(",");
+      Serial.println(p.y);
+      screenstate = (screenstate + 1) % NUMSCREENSTATES;      
+      touchscreenArmed = 0;
+    }
+  } else {
+    touchscreenArmed = 1;
+  }
 
-  usbAusbMinicable();
 
-  usbAusbMicrocable();
-  usbAusbCcable();
+  if (screenstate != prevscreenstate) {
+    DEBUG("Screenstate: ");
+    DEBUGLN(screenstate);
+    screendrawn = false;
+    prevscreenstate = screenstate;
+  }
 
-  usbA3usbMinicable();
-  usbA3usbMicrocable();
-  usbA3usbCcable();
+  switch (screenstate) {
+    case textScreen:
+      if (!screendrawn) {
+        Serial.println("Doing screenstate textScreen");
+        screendrawn = true;    
+        tft.fillScreen(BLACK);
+        /*tft.setCursor(2,20);
+        tft.println("Yeah");
+        tft.setCursor(2,25);
+        tft.println("Right");*/
+        textstatus( tft, usb) ;
+        Serial.println("Done");
+      };
+      break;
 
-  usbCusbMinicable();
+    case connectorScreen:
+      if (!screendrawn) {
+        Serial.println("Doing screenstate connectorScreen");
+        usbAusbMinicable();
+        usbAusbMicrocable();
+        usbAusbCcable();
 
-  usbCusbMicrocable();
+        usbA3usbMinicable();
+        usbA3usbMicrocable();
+        usbA3usbCcable();
 
-  usbCusbCcable();
+        usbCusbMinicable();
+        usbCusbMicrocable();
+        usbCusbCcable();
 
-  usbscan();
+        usbscan();
+        Serial.println("Done");
+      };
+      break;
+
+    /*case splashScreen:
+      if (!screendrawn) {
+        //tft.splashscreen();
+        screendrawn = true;
+        screenstate = connectorScreen;
+      };
+      break;*/
+
+    case detectionScreen:
+    Serial.println("Doing screenstate detectionScreen");
+      detectionView( tft, usb, screendrawn );
+      break;
+
+    default:
+      screenstate = (screenstate + 1) % NUMSCREENSTATES;
+  };
+}
+
+int cnt = 0 ;
+
+void testloop() {
+  delay(1000);
+  Serial.println("Looping");
+
+  TSPoint p = ts.getPoint();
+  pinMode(XM, OUTPUT);  // Bug in TS library: restore these two pins to OUTPUT!
+  pinMode(YP, OUTPUT);
+
+  if (p.z > ts.pressureThreshhold) {
+    Serial.print("Z = ");
+    Serial.print(p.z);
+    Serial.print(" X,Y = ");
+    Serial.print(p.x);
+    Serial.print(",");
+    Serial.println(p.y);
+    screenstate = (screenstate + 1) % NUMSCREENSTATES;
+    DEBUG("Screenstate: ");
+    DEBUGLN(screenstate);
+  }
+
+
+  tft.print("Going strong: ");
+  tft.println(cnt++);
+}
+
+void setup() {
+  newsetup();
+  tft.setCursor(0,0);
+
+}
+
+void loop() {
+  newloop();
 }

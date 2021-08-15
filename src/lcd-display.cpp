@@ -1,12 +1,27 @@
 #include "lcd-display.h"
 
-void LCD_DISPLAY::USBC_Right_template()
+void LCD_DISPLAY::USBC_template(int x, int y, bool highlight = false)
 {
+  int x2 = x+2;
+  int x3 = x+20;
 
-  //  USB Type C v3.0
+  if (highlight) 
+    fillRoundRect(x, y, 26, 137, 10, WHITE);
 
-  // Right USB C Plug
+  for (int yp=0; yp < 120; yp += 10) {
+    fillRect(x2, y+11+yp, 4, 6, YELLOW);  
+    fillRect(x3, y+11+yp, 4, 6, YELLOW);  
+  }
 
+  drawRoundRect(x, y, 26, 137, 10, GREEN);
+  drawRoundRect(x2, y+2, 22, 133, 10, GREEN);
+
+  setTextColor(WHITE);
+  setTextSize(0);
+}
+
+/*void LCD_DISPLAY::USBC_Right_template()
+{
   setTextColor(WHITE);
   setTextSize(0);
 
@@ -15,79 +30,11 @@ void LCD_DISPLAY::USBC_Right_template()
   setCursor(270, 25);
   println(" v3.0");
 
-  // Pins USB 3 Pins right
-  fillRect(295, 63, 4, 6, YELLOW);
-  fillRect(295, 73, 4, 6, YELLOW);
-  fillRect(295, 83, 4, 6, YELLOW);
-  fillRect(295, 93, 4, 6, YELLOW);
-  fillRect(295, 103, 4, 6, YELLOW);
-  fillRect(295, 113, 4, 6, YELLOW);
-  fillRect(295, 123, 4, 6, YELLOW);
-  fillRect(295, 133, 4, 6, YELLOW);
-  fillRect(295, 143, 4, 6, YELLOW);
-  fillRect(295, 153, 4, 6, YELLOW);
-  fillRect(295, 163, 4, 6, YELLOW);
-  fillRect(295, 173, 4, 6, YELLOW);
-
-  // Pins USB 3 Pins left
-  fillRect(277, 63, 4, 6, YELLOW);
-  fillRect(277, 73, 4, 6, YELLOW);
-  fillRect(277, 83, 4, 6, YELLOW);
-  fillRect(277, 93, 4, 6, YELLOW);
-  fillRect(277, 103, 4, 6, YELLOW);
-  fillRect(277, 113, 4, 6, YELLOW);
-  fillRect(277, 123, 4, 6, YELLOW);
-  fillRect(277, 133, 4, 6, YELLOW);
-  fillRect(277, 143, 4, 6, YELLOW);
-  fillRect(277, 153, 4, 6, YELLOW);
-  fillRect(277, 163, 4, 6, YELLOW);
-  fillRect(277, 173, 4, 6, YELLOW);
-
-  // Outer Case USB C Right
-  drawRoundRect(275, 52, 26, 137, 10, GREEN); // outer
-  drawRoundRect(277, 54, 22, 133, 10, GREEN); // inner
-
-  //  tft.drawRoundRect(273, 50, 30, 141, 12, MAGENTA);   // outer
-  //  tft.drawRoundRect(277, 54, 22, 133, 10, MAGENTA);  // inner
-
-  setTextColor(WHITE);
-  setTextSize(0);
-
-  /*
-  // USB C pin outs
-  setCursor(195, 2);     println("GND     A1");
-  setCursor(195, 11);    println("GND    B12");
-  setCursor(195, 20);    println("TX1+    A2");
-  setCursor(195, 30);    println("RX1+   B11");
-  setCursor(195, 40);    println("TX1-    A3");
-  setCursor(195, 50);    println("RX1-   B10");
-  setCursor(195, 60);    println("vBUS    A4");
-  setCursor(195, 70);    println("vBUS    B9");
-  setCursor(195, 80);    println("CC1     A5");
-  setCursor(195, 90);    println("SBUS2   B8");
-  setCursor(195, 100);   println("D+      A6");
-  setCursor(195, 110);   println("D-      B7");
-  setCursor(195, 120);   println("D-      A7");
-  setCursor(195, 130);   println("D+      B6");
-  setCursor(195, 140);   println("SBU1    A8");
-  setCursor(195, 150);   println("CC2     B5");
-  setCursor(195, 160);   println("vBUS    A9");
-  setCursor(195, 170);   println("vBUS    B4");
-  setCursor(195, 180);   println("RX2-   A10");
-  setCursor(195, 190);   println("TX2-    B3");
-  setCursor(195, 200);   println("RX2+   A11");
-  setCursor(195, 210);   println("RX2-    B2");
-  setCursor(195, 220);   println("GND    A12");
-  setCursor(195, 230);   println("GND     B1");
-  drawRoundRect(0, 0, 320, 240, 10, WHITE);
-  */
-}
+  USBC_template(275, 52);
+}*/
 
 void LCD_DISPLAY::USBC_Left_template()
 {
-
-  //  USB Type C Cable v3.0
-
   setTextColor(WHITE);
   setTextSize(0);
 
@@ -96,80 +43,29 @@ void LCD_DISPLAY::USBC_Left_template()
   setCursor(20, 25);
   println(" v3.0");
 
-  // Pins USB 3 Pins right
-  fillRect(42, 63, 4, 6, YELLOW);
-  fillRect(42, 73, 4, 6, YELLOW);
-  fillRect(42, 83, 4, 6, YELLOW);
-  fillRect(42, 93, 4, 6, YELLOW);
-  fillRect(42, 103, 4, 6, YELLOW);
-  fillRect(42, 113, 4, 6, YELLOW);
-  fillRect(42, 123, 4, 6, YELLOW);
-  fillRect(42, 133, 4, 6, YELLOW);
-  fillRect(42, 143, 4, 6, YELLOW);
-  fillRect(42, 153, 4, 6, YELLOW);
-  fillRect(42, 163, 4, 6, YELLOW);
-  fillRect(42, 173, 4, 6, YELLOW);
+  USBC_template(22, 52);
+}
 
-  // Pins USB 3 Pins left
-  fillRect(24, 63, 4, 6, YELLOW);
-  fillRect(24, 73, 4, 6, YELLOW);
-  fillRect(24, 83, 4, 6, YELLOW);
-  fillRect(24, 93, 4, 6, YELLOW);
-  fillRect(24, 103, 4, 6, YELLOW);
-  fillRect(24, 113, 4, 6, YELLOW);
-  fillRect(24, 123, 4, 6, YELLOW);
-  fillRect(24, 133, 4, 6, YELLOW);
-  fillRect(24, 143, 4, 6, YELLOW);
-  fillRect(24, 153, 4, 6, YELLOW);
-  fillRect(24, 163, 4, 6, YELLOW);
-  fillRect(24, 173, 4, 6, YELLOW);
+void LCD_DISPLAY::USB2_A_template(int x, int y, bool highlight = false) {
+  int x2 = x + 15;
 
-  // Outer Case USB C Left
-  drawRoundRect(22, 52, 26, 137, 10, GREEN); // outer
-  drawRoundRect(24, 54, 22, 133, 10, GREEN); // inner
+  if (highlight) {
+    fillRoundRect(x, y, 34, 135, 3, WHITE);
+  }
 
-  /*
-  
- tft.setTextColor(WHITE);  tft.setTextSize(0);
+  fillRect(x2, y+15, 4, 14, YELLOW);
+  fillRect(x2, y+45, 4, 14, YELLOW);
+  fillRect(x2, y+75, 4, 14, YELLOW);
+  fillRect(x2, y+105, 4, 14, YELLOW);
 
-  // USB C pin outs
-  tft.setCursor(70, 2);    tft.println("A1    GND");
-  tft.setCursor(70, 11);    tft.println("B12   GND");
-  tft.setCursor(70, 20);    tft.println("A2    TX1+");
-  tft.setCursor(70, 30);    tft.println("B11   RX1+");
-  tft.setCursor(70, 40);    tft.println("A3    TX1-");
-  tft.setCursor(70, 50);    tft.println("B10   RX1-");
-  tft.setCursor(70, 60);    tft.println("A4    vBUS");
-  tft.setCursor(70, 70);   tft.println("B9    vBUS");
-  tft.setCursor(70, 80);   tft.println("A5     CC1");
-  
-  tft.setCursor(70, 90);    tft.println("B8   SBUS2");
-  tft.setCursor(70, 100);   tft.println("A6      D+");
-  tft.setCursor(70, 110);   tft.println("B7      D-");
-  tft.setCursor(70, 120);   tft.println("A7      D-");
-  tft.setCursor(70, 130);   tft.println("B6      D+");
-  tft.setCursor(70, 140);   tft.println("A8    SBU1");
-  tft.setCursor(70, 150);   tft.println("B5     CC2");
-  tft.setCursor(70, 160);   tft.println("A9    vBUS");
-  tft.setCursor(70, 170);   tft.println("B4    vBUS");
-  tft.setCursor(70, 180);   tft.println("A10   RX2-");
-  tft.setCursor(70, 190);   tft.println("B3    TX2-");
-  tft.setCursor(70, 200);   tft.println("A11   RX2+");
-  tft.setCursor(70, 210);   tft.println("B2    RX2-");
-  tft.setCursor(70, 220);   tft.println("A12    GND");
-  tft.setCursor(70, 230);   tft.println("B1     GND");
-
-  tft.drawRoundRect(0, 0, 320, 240, 10, WHITE);
-*/
+  fillRect(x+3, y+3, 13, 129, WHITE);
+  drawRect(x+3, y+3, 13, 129, BLUE);
+  drawRoundRect(x, y, 34, 135, 3, GREEN);
+  drawRect(x+1, y+1, 32, 133, GREEN);
 }
 
 void LCD_DISPLAY::USB2_A_template()
 {
-
-  // Draws the connector and pins for USB A V2.0 on LHS of screen
-
-  // Left USB A Plug
-
   setTextColor(WHITE);
   setTextSize(0);
   setCursor(20, 15);
@@ -177,23 +73,47 @@ void LCD_DISPLAY::USB2_A_template()
   setCursor(20, 25);
   println(" v2.0");
 
-  // Pins USB A Pins left
+  USB2_A_template(18, 53);
+}
 
-  fillRect(33, 68, 4, 14, YELLOW);
-  fillRect(33, 98, 4, 14, YELLOW);
-  fillRect(33, 128, 4, 14, YELLOW);
-  fillRect(33, 158, 4, 14, YELLOW);
+void LCD_DISPLAY::USB_mini_template(int x, int y, bool highlight = false) {
+  fillRoundRect(x+32, y+1, 12, 109, 4, BLUE);
+  drawRoundRect(x+19, y, 27, 111, 10, GREEN);
+  drawRoundRect(x+20, y+1, 25, 109, 8, GREEN);
+  drawRoundRect(x, y+15, 27, 81, 8, GREEN);
+  drawRoundRect(x+1, y+16, 25, 79, 6, GREEN);
+  fillRect(x+11, y+17, 20, 77, BLACK);
+  fillRect(x+19, y+9, 10, 93, BLACK);
+  fillRect(x+12, y+15, 20, 81, BLACK);
 
-  // Outer Case USB A Left
-  fillRect(21, 56, 13, 129, WHITE);         // Contact Bar
-  drawRect(21, 56, 13, 129, BLUE);          // Contact Bar
-  drawRoundRect(18, 53, 34, 135, 3, GREEN); // outer
-  drawRect(19, 54, 32, 133, GREEN);         // inner
+  drawLine(x+10, y+15, x+20, y+5, GREEN);
+  drawLine(x+11, y+15, x+21, y+5, GREEN);
+  drawLine(x+10, y+17, x+25, y+2, BLACK);
+  drawLine(x+10, y+18, x+25, y+3, BLACK);
+
+  drawLine(x+10, y+95, x+20, y+105, GREEN);
+  drawLine(x+11, y+95, x+21, y+105, GREEN);
+  drawLine(x+10, y+93, x+25, y+108, BLACK);
+  drawLine(x+10, y+92, x+25, y+107, BLACK);
+
+  if (highlight) {
+    fillRect(x+2, y + 21, 30, 69, RED);
+    fillCircle(x+7, y + 22, 5, RED);
+    fillCircle(x+7, y + 88, 5, RED);
+    fillTriangle(x+6, y+20, x+25, y+2, x+25, y+20, RED);
+    fillRect(x+26, y+2, 6, 19, RED);
+    fillTriangle(x+7, y+90, x+25, y+108, x+25, y+90, RED);
+    fillRect(x+26, y+90, 6, 19, RED);
+  }
+
+  for (int yc=0; yc < 100; yc+=20) {
+    fillRect(x+31, y+12+yc, 4, 8, YELLOW);
+  }
+
 }
 
 void LCD_DISPLAY::USB_mini_template()
 {
-
   // Draws the connector and pins for USB Mini on RHS of screen
 
   setTextColor(WHITE);
@@ -203,130 +123,78 @@ void LCD_DISPLAY::USB_mini_template()
   setCursor(260, 25);
   println(" v2.0");
 
-  // Outer Case USB Mini Right
+  USB_mini_template(254, 70);
+}
 
-  fillRoundRect(286, 71, 12, 109, 4, BLUE);   // Connector Bar
-  drawRoundRect(273, 70, 27, 111, 10, GREEN); // right outer
-  drawRoundRect(274, 71, 25, 109, 8, GREEN);  // right inner
-  drawRoundRect(254, 85, 27, 81, 8, GREEN);   // left outer
-  drawRoundRect(255, 86, 25, 79, 6, GREEN);   // left inner
-  fillRect(265, 87, 20, 77, BLACK);           // Delete overlap
-  fillRect(273, 79, 10, 93, BLACK);           // Delete overlap
-  fillRect(266, 85, 20, 81, BLACK);           // Delete overlap
+void LCD_DISPLAY::USB_micro_template(int x, int y, bool highlight = false) {
+  fillRoundRect(x+22, y+1, 12, 109, 8, BLUE);
+  fillRect(x+22, y+1, 6, 4, BLUE); 
+  fillRect(x+22, y+105, 6, 4, BLUE); 
 
-  // Draw angled case
+  drawRoundRect(x+9, y, 27, 111, 10, GREEN);
+  drawRoundRect(x+10, y+1, 25, 109, 8, GREEN);
+  fillRect(x+9, y, 6, 111, BLACK);
+  drawLine(x, y+15, x+15, y, GREEN); 
+  drawLine(x+1, y+15, x+16, y, GREEN);
+  drawLine(x, y+94, x+15, y+109, GREEN);
+  drawLine(x+1, y+94, x+16, y+109, GREEN);
+  drawLine(x, y+15, x, y+94, GREEN);
+  drawLine(x+1, y+15, x+1, y+94, GREEN);
 
-  drawLine(264, 85, 274, 75, GREEN);   // Upper angle
-  drawLine(265, 85, 275, 75, GREEN);   // Upper angle
-  drawLine(264, 87, 279, 72, BLACK);   // Upper Tidy Up 1
-  drawLine(264, 88, 279, 73, BLACK);   // Upper Tidy Up 2
-  drawLine(264, 165, 274, 175, GREEN); // Lower angle
-  drawLine(265, 165, 275, 175, GREEN); // Lower angle
-  drawLine(264, 163, 279, 178, BLACK); // Lower Tidy Up 1
-  drawLine(264, 162, 279, 177, BLACK); // Lower Tidy Up 2
+  if (highlight) {
+    fillRect(x+2, y+15, 20, 80, RED);
+    fillTriangle(x+3, y+14, x+15, y+14, x+15, y+2, RED );
+    fillRect(x+16, y+2, 6, 13, RED);
 
-  // Draw contacts
+    fillTriangle(x+3, y+95, x+15, y+107, x+15, y+95, RED );
+    fillRect(x+16, y+95, 6, 14, RED);
+  }
 
-  fillRect(285, 82, 4, 8, YELLOW);
-  fillRect(285, 102, 4, 8, YELLOW);
-  fillRect(285, 122, 4, 8, YELLOW);
-  fillRect(285, 142, 4, 8, YELLOW);
-  fillRect(285, 162, 4, 8, YELLOW);
-
-  /*
-  setCursor(195, 160);    tft.println("Vcc    1");
-  setCursor(195, 140);    tft.println("Data-  2");
-  setCursor(195, 120);    tft.println("Data+  3");
-  setCursor(195, 100);    tft.println("ID     4");
-  setCursor(195, 80);     tft.println("GND    5");
-  drawRoundRect(0, 0, 320, 240, 10, WHITE);
-*/
-
-  /* Wires
-
-  drawLine( 135, 80, 185, 80, WHITE);
-  drawLine( 135, 100, 185, 100, WHITE);
-  drawLine( 135, 120, 185, 120, WHITE);
-  drawLine( 135, 140, 185, 140, WHITE);
-  drawLine( 135, 160, 185, 160, WHITE);
-*/
+  for (int yc = 0; yc <= 80; yc += 20) {
+    fillRect(x+21, y+12+yc, 4, 8, YELLOW);
+  }
 }
 
 void LCD_DISPLAY::USB_micro_template()
 {
-
   // Draws the connector and pins for USB Micro-b on RHS of screen
 
   setTextColor(WHITE);
   setTextSize(0);
-setCursor(255, 15);
+  setCursor(255, 15);
   println("USB Micro");
   setCursor(260, 25);
   println(" v2.0");
 
-  // Outer Case USB Mini Right
+  USB_micro_template(264, 70);
 
-  fillRoundRect(286, 71, 12, 109, 4, BLUE); // Connector Bar
-drawRoundRect(273, 70, 27, 111, 10, GREEN); // right outer
-  drawRoundRect(274, 71, 25, 109, 8, GREEN);  // right inner
+}
 
-  //  tft.drawRoundRect(254, 85, 27, 81, 8, WHITE);   // left outer
-  //  tft.drawRoundRect(255, 86, 25, 79, 6, WHITE);  // left inner
+void LCD_DISPLAY::USB3_A_template(int x, int y, bool highlight = false) {
+  if (highlight) {
+    fillRoundRect(x, y, 34, 135, 3, WHITE);
+  }
 
-  fillRect(265, 87, 20, 77, BLACK); // Delete overlap
-  fillRect(273, 79, 10, 93, BLACK); // Delete overlap
-  fillRect(266, 85, 20, 81, BLACK); // Delete overlap
+  fillRect(x + 16, y+12, 7, 7, CYAN);
+  fillRect(x + 16, y+34, 7, 7, CYAN);
+  fillRect(x + 16, y+63, 7, 7, CYAN);
+  fillRect(x + 16, y+92, 7, 7, CYAN);
+  fillRect(x + 16, y+114, 7, 7, CYAN);
+  fillRect(x + 15, y+15, 4, 14, YELLOW);
+  fillRect(x + 15, y+45, 4, 14, YELLOW);
+  fillRect(x + 15, y+75, 4, 14, YELLOW);
+  fillRect(x + 15, y+105, 4, 14, YELLOW);
 
-  // Draw angled case
-
-  drawLine(264, 85, 274, 75, GREEN); // Upper angle
-  drawLine(265, 85, 275, 75, GREEN); // Upper angle
-drawLine(264, 87, 279, 72, BLACK); // Upper Tidy Up 1
-  drawLine(264, 88, 279, 73, BLACK); // Upper Tidy Up 2
-drawLine(264, 165, 274, 175, GREEN); // Lower angle
-  drawLine(265, 165, 275, 175, GREEN); // Lower angle
-drawLine(264, 163, 279, 178, BLACK); // Lower Tidy Up 1
-  drawLine(264, 162, 279, 177, BLACK); // Lower Tidy Up 2
-drawLine(264, 164, 264, 86, GREEN); // COnnector line
-  drawLine(265, 164, 265, 86, GREEN); // COnnector line
-
-  // Draw contacts
-
-  fillRect(285, 82, 4, 8, YELLOW);
-  fillRect(285, 102, 4, 8, YELLOW);
-  fillRect(285, 122, 4, 8, YELLOW);
-  fillRect(285, 142, 4, 8, YELLOW);
-  fillRect(285, 162, 4, 8, YELLOW);
-
-  /*
-  setCursor(195, 160);    tft.println("Vcc    1");
-  setCursor(195, 140);    tft.println("Data-  2");
-  setCursor(195, 120);    tft.println("Data+  3");
-  setCursor(195, 100);    tft.println("ID     4");
-  setCursor(195, 80);     tft.println("GND    5");
-
-  drawRoundRect(0, 0, 320, 240, 10, WHITE);
-*/
-  /* Wires
-
-  drawLine( 135, 80, 185, 80, WHITE);
-  drawLine( 135, 100, 185, 100, WHITE);
-  drawLine( 135, 120, 185, 120, WHITE);
-  drawLine( 135, 140, 185, 140, WHITE);
-  drawLine( 135, 160, 185, 160, WHITE);
-*/
+  fillRect(x+3, y+3, 13, 129, BLUE);
+  drawRect(x+3, y+3, 13, 129, BLACK);
+  drawRoundRect(x, y, 34, 135, 3, GREEN);
+  drawRect(x+1, y+1, 32, 133, GREEN);      
 }
 
 
 void LCD_DISPLAY::USB3_A_template()
 {
-
   // Draws the connector and pins for USB A V3.0 on LHS of screen
-
-  //  USB Type A V3.0 to Type B Micro
-
-  // Left USB A Plug
-
   setTextColor(WHITE);
   setTextSize(0);
   setCursor(20, 15);
@@ -334,53 +202,7 @@ void LCD_DISPLAY::USB3_A_template()
   setCursor(20, 25);
   println(" v3.0");
 
-  // Pins USB A Pins left
-
-  fillRect(34, 65, 7, 7, CYAN);
-  fillRect(34, 87, 7, 7, CYAN);
-  fillRect(34, 116, 7, 7, CYAN);
-  fillRect(34, 145, 7, 7, CYAN);
-  fillRect(34, 167, 7, 7, CYAN);
-  fillRect(33, 68, 4, 14, YELLOW);
-  fillRect(33, 98, 4, 14, YELLOW);
-  fillRect(33, 128, 4, 14, YELLOW);
-  fillRect(33, 158, 4, 14, YELLOW);
-
-  // Outer Case USB A Left
-  fillRect(21, 56, 13, 129, BLUE);          // Contact Bar
-  drawRect(21, 56, 13, 129, BLACK);         // Contact Bar
-  drawRoundRect(18, 53, 34, 135, 3, GREEN); // outer
-  drawRect(19, 54, 32, 133, GREEN);         // inner
-
-  /*
-  setTextColor(WHITE);  tft.setTextSize(0);
-
-  // USB A pin outs
-
-  setCursor(60, 65);    tft.println("5 StdA_SSRX-");
-  setCursor(60, 78);    tft.println("4 USB2   GND");
-  setCursor(60, 91);    tft.println("6 StdA_SSRX+");
-  setCursor(60, 104);   tft.println("3 USB2    D+");
-  setCursor(60, 117);   tft.println("7  GND_DRAIN");  
-  setCursor(60, 130);   tft.println("2 USB2    D-");
-  setCursor(60, 143);   tft.println("8 StdA_SSTX-");  
-  setCursor(60, 156);   tft.println("1 USB2   Vcc");
-  setCursor(60, 169);   tft.println("9 StdA_SSTX+");
-drawRoundRect(0, 0, 320, 240, 10, WHITE);
-
-*/
-  /* Wires
-
-  drawLine( 137, 68, 185, 68, WHITE);
-  drawLine( 137, 81, 185, 81, WHITE);
-  drawLine( 137, 94, 185, 94, WHITE);
-  drawLine( 137, 107, 185, 107, WHITE);
-  drawLine( 137, 120, 185, 120, WHITE);
-  drawLine( 137, 133, 185, 133, WHITE);
-  drawLine( 137, 146, 185, 146, WHITE);
-  drawLine( 137, 159, 185, 159, WHITE);
-  drawLine( 137, 172, 185, 172, WHITE);
-*/
+  USB3_A_template(18,53);
 }
 
 void LCD_DISPLAY::splashscreen()

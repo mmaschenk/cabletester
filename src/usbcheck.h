@@ -1,6 +1,17 @@
 #ifndef _USBCHECK__H_
 #define _USBCHECK__H_
 
+#include <Arduino.h>
+
+#define MAXIOS 69
+#define FIRSTPIN 14
+
+class USBDrawable {
+  public:
+    virtual void drawMeAtDefaultPosition() = 0;
+    virtual void drawMeAt(int x, int y) = 0;
+};
+
 enum connectorposition {
   LEFT, RIGHT
 };
@@ -19,6 +30,7 @@ typedef struct
   const char *name;
   const char *subname;
   pininfo pin[16];
+  USBDrawable *draw;
 } connectorinfo;
 
 enum connections
@@ -32,6 +44,10 @@ enum connections
   CONNECTIONS_MAX
 };
 
+#define CONNECTIONSPERSIDE (CONNECTIONS_MAX/2)
+#define LEFTSIDECONNECTIONS (CONNECTIONS_MAX/2)
+#define RIGHTSIDECONNECTIONS LEFTSIDECONNECTIONS
+
 typedef struct 
 {
   uint8_t sourcepin;
@@ -44,12 +60,13 @@ typedef struct
   pinconnection check[2];
 } connectorcheck;
 
+
+
 class USBCHECK
 {
-private:
+public:
   connectorinfo info[CONNECTIONS_MAX];
   connectorcheck connectinfo[CONNECTIONS_MAX/2][CONNECTIONS_MAX/2];
-public:
   void CtoC();
   USBCHECK()
   {
@@ -82,7 +99,7 @@ public:
       {69, 0, "4    GND"}}
     };
 
-    info[a3left] = { 4, LEFT, "USB A", "v3.0",
+    info[a3left] = { 9, LEFT, "USB A", "v3.0",
     {
       {18, 0, "1 USB2   Vcc"},
       {19, 0, "2 USB2    D-"},
@@ -198,6 +215,7 @@ public:
   void initpinmode();
   bool isconnected(connectorinfo &source, connectorcheck &targetconnection);
   bool isconnected(uint8_t sourcepin, uint8_t targetpin);
+
 };
 
 #endif

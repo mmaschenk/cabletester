@@ -4,7 +4,7 @@
 #include "usbcheck.h"
 #include <stdarg.h>
 
-#define MAXIOS 69
+
 
 void pr(Print &response, const char *fmt, ... ){
   char buf[128]; // resulting string limited to 128 chars
@@ -22,7 +22,7 @@ void USBCHECK::initpinmode() {    // Initialize all pins in config to digital in
       pininfo pin = i.pin[p];
 
       pinMode(pin.pinnumber, INPUT_PULLUP);
-      DEBUG("Inputmode set for");
+      DEBUG("Inputmode set for ");
       DEBUGLN(pin.pinnumber);
     }
   }
