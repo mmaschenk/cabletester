@@ -12,8 +12,6 @@ class LCD_DISPLAY : public Adafruit_TFTLCD {
       Serial.println("Instantiated");
     };
 
-    void USB_mini_template(int x, int y, bool highlight = false);
-    void USB_mini_template();
     void USB_micro_template(int x, int y, bool highlight = false);
     void USB_micro_template();
     void splashscreen();

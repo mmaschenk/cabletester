@@ -1,55 +1,5 @@
 #include "lcd-display.h"
 
-void LCD_DISPLAY::USB_mini_template(int x, int y, bool highlight = false) {
-  fillRoundRect(x+32, y+1, 12, 109, 4, BLUE);
-  drawRoundRect(x+19, y, 27, 111, 10, GREEN);
-  drawRoundRect(x+20, y+1, 25, 109, 8, GREEN);
-  drawRoundRect(x, y+15, 27, 81, 8, GREEN);
-  drawRoundRect(x+1, y+16, 25, 79, 6, GREEN);
-  fillRect(x+11, y+17, 20, 77, BLACK);
-  fillRect(x+19, y+9, 10, 93, BLACK);
-  fillRect(x+12, y+15, 20, 81, BLACK);
-
-  drawLine(x+10, y+15, x+20, y+5, GREEN);
-  drawLine(x+11, y+15, x+21, y+5, GREEN);
-  drawLine(x+10, y+17, x+25, y+2, BLACK);
-  drawLine(x+10, y+18, x+25, y+3, BLACK);
-
-  drawLine(x+10, y+95, x+20, y+105, GREEN);
-  drawLine(x+11, y+95, x+21, y+105, GREEN);
-  drawLine(x+10, y+93, x+25, y+108, BLACK);
-  drawLine(x+10, y+92, x+25, y+107, BLACK);
-
-  if (highlight) {
-    fillRect(x+2, y + 21, 30, 69, RED);
-    fillCircle(x+7, y + 22, 5, RED);
-    fillCircle(x+7, y + 88, 5, RED);
-    fillTriangle(x+6, y+20, x+25, y+2, x+25, y+20, RED);
-    fillRect(x+26, y+2, 6, 19, RED);
-    fillTriangle(x+7, y+90, x+25, y+108, x+25, y+90, RED);
-    fillRect(x+26, y+90, 6, 19, RED);
-  }
-
-  for (int yc=0; yc < 100; yc+=20) {
-    fillRect(x+31, y+12+yc, 4, 8, YELLOW);
-  }
-
-}
-
-void LCD_DISPLAY::USB_mini_template()
-{
-  // Draws the connector and pins for USB Mini on RHS of screen
-
-  setTextColor(WHITE);
-  setTextSize(0);
-  setCursor(255, 15);
-  println("USB Mini");
-  setCursor(260, 25);
-  println(" v2.0");
-
-  USB_mini_template(254, 70);
-}
-
 void LCD_DISPLAY::USB_micro_template(int x, int y, bool highlight = false) {
   fillRoundRect(x+22, y+1, 12, 109, 8, BLUE);
   fillRect(x+22, y+1, 6, 4, BLUE); 
