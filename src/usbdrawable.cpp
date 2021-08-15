@@ -43,7 +43,7 @@ void CLeftDrawable::drawMeAtDefaultPosition() {
 };
 
 void CLeftDrawable::drawMeAt(int x, int y) {
-  this->tft->USBC_template(x, y);
+  USBC_template(tft, x, y);
 };
 
 void CRightDrawable::drawMeAtDefaultPosition() {
@@ -60,7 +60,7 @@ void CRightDrawable::drawMeAtDefaultPosition() {
 };
 
 void CRightDrawable::drawMeAt(int x, int y) {
-  this->tft->USBC_template(x, y);
+  USBC_template(tft, x, y);
 };
 
 void A2Drawable::drawMeAtDefaultPosition() {

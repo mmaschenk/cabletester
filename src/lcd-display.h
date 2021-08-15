@@ -12,7 +12,6 @@ class LCD_DISPLAY : public Adafruit_TFTLCD {
       Serial.println("Instantiated");
     };
 
-    void USBC_template(int x, int y, bool hightlight = false);
     void USB2_A_template(int x, int y, bool highlight = false);
     void USB2_A_template();
     void USB3_A_template(int x, int y, bool highlight = false);

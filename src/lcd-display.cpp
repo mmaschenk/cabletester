@@ -1,25 +1,5 @@
 #include "lcd-display.h"
 
-void LCD_DISPLAY::USBC_template(int x, int y, bool highlight = false)
-{
-  int x2 = x+2;
-  int x3 = x+20;
-
-  if (highlight) 
-    fillRoundRect(x, y, 26, 137, 10, WHITE);
-
-  for (int yp=0; yp < 120; yp += 10) {
-    fillRect(x2, y+11+yp, 4, 6, YELLOW);  
-    fillRect(x3, y+11+yp, 4, 6, YELLOW);  
-  }
-
-  drawRoundRect(x, y, 26, 137, 10, GREEN);
-  drawRoundRect(x2, y+2, 22, 133, 10, GREEN);
-
-  setTextColor(WHITE);
-  setTextSize(0);
-}
-
 void LCD_DISPLAY::USB2_A_template(int x, int y, bool highlight = false) {
   int x2 = x + 15;
 
