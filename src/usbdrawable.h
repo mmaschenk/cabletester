@@ -15,41 +15,41 @@ class CLeftDrawable : public BaseDrawable {
   using BaseDrawable::BaseDrawable;
   public:
     void drawMeAtDefaultPosition();
-    void drawMeAt(int x, int y);
+    void drawMeAt(int x, int y, bool highlight = false);
 };
 
 class CRightDrawable : public BaseDrawable {
   using BaseDrawable::BaseDrawable;
   public:
     void drawMeAtDefaultPosition();
-    void drawMeAt(int x, int y);
+    void drawMeAt(int x, int y, bool highlight = false);
 };
 
 class A2Drawable : public BaseDrawable {
   using BaseDrawable::BaseDrawable;
   public:
     void drawMeAtDefaultPosition();
-    void drawMeAt(int x, int y);
+    void drawMeAt(int x, int y, bool highlight = false);
 };
 
 class A3Drawable : public BaseDrawable {
   using BaseDrawable::BaseDrawable;
   public:
     void drawMeAtDefaultPosition();
-    void drawMeAt(int x, int y);
+    void drawMeAt(int x, int y, bool highlight = false);
 };
 
 class MiniDrawable : public BaseDrawable {
   using BaseDrawable::BaseDrawable;
   public:
     void drawMeAtDefaultPosition();
-    void drawMeAt(int x, int y);
+    void drawMeAt(int x, int y, bool highlight = false);
 };
 
 class MicroDrawable : public BaseDrawable {
   using BaseDrawable::BaseDrawable;
   public:
     void drawMeAtDefaultPosition();
-    void drawMeAt(int x, int y);
+    void drawMeAt(int x, int y, bool highlight = false);
 };
 #endif

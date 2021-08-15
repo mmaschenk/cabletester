@@ -1,35 +1,5 @@
 #include "lcd-display.h"
 
-void LCD_DISPLAY::USB2_A_template(int x, int y, bool highlight = false) {
-  int x2 = x + 15;
-
-  if (highlight) {
-    fillRoundRect(x, y, 34, 135, 3, WHITE);
-  }
-
-  fillRect(x2, y+15, 4, 14, YELLOW);
-  fillRect(x2, y+45, 4, 14, YELLOW);
-  fillRect(x2, y+75, 4, 14, YELLOW);
-  fillRect(x2, y+105, 4, 14, YELLOW);
-
-  fillRect(x+3, y+3, 13, 129, WHITE);
-  drawRect(x+3, y+3, 13, 129, BLUE);
-  drawRoundRect(x, y, 34, 135, 3, GREEN);
-  drawRect(x+1, y+1, 32, 133, GREEN);
-}
-
-void LCD_DISPLAY::USB2_A_template()
-{
-  setTextColor(WHITE);
-  setTextSize(0);
-  setCursor(20, 15);
-  println("USB A");
-  setCursor(20, 25);
-  println(" v2.0");
-
-  USB2_A_template(18, 53);
-}
-
 void LCD_DISPLAY::USB_mini_template(int x, int y, bool highlight = false) {
   fillRoundRect(x+32, y+1, 12, 109, 4, BLUE);
   drawRoundRect(x+19, y, 27, 111, 10, GREEN);
@@ -124,40 +94,6 @@ void LCD_DISPLAY::USB_micro_template()
 
 }
 
-void LCD_DISPLAY::USB3_A_template(int x, int y, bool highlight = false) {
-  if (highlight) {
-    fillRoundRect(x, y, 34, 135, 3, WHITE);
-  }
-
-  fillRect(x + 16, y+12, 7, 7, CYAN);
-  fillRect(x + 16, y+34, 7, 7, CYAN);
-  fillRect(x + 16, y+63, 7, 7, CYAN);
-  fillRect(x + 16, y+92, 7, 7, CYAN);
-  fillRect(x + 16, y+114, 7, 7, CYAN);
-  fillRect(x + 15, y+15, 4, 14, YELLOW);
-  fillRect(x + 15, y+45, 4, 14, YELLOW);
-  fillRect(x + 15, y+75, 4, 14, YELLOW);
-  fillRect(x + 15, y+105, 4, 14, YELLOW);
-
-  fillRect(x+3, y+3, 13, 129, BLUE);
-  drawRect(x+3, y+3, 13, 129, BLACK);
-  drawRoundRect(x, y, 34, 135, 3, GREEN);
-  drawRect(x+1, y+1, 32, 133, GREEN);      
-}
-
-
-void LCD_DISPLAY::USB3_A_template()
-{
-  // Draws the connector and pins for USB A V3.0 on LHS of screen
-  setTextColor(WHITE);
-  setTextSize(0);
-  setCursor(20, 15);
-  println("USB A");
-  setCursor(20, 25);
-  println(" v3.0");
-
-  USB3_A_template(18,53);
-}
 
 void LCD_DISPLAY::splashscreen()
 {

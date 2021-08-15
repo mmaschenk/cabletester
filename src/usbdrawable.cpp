@@ -42,7 +42,7 @@ void CLeftDrawable::drawMeAtDefaultPosition() {
   USBC_template(tft, 22, 52);
 };
 
-void CLeftDrawable::drawMeAt(int x, int y) {
+void CLeftDrawable::drawMeAt(int x, int y, bool highlight = false) {
   USBC_template(tft, x, y);
 };
 
@@ -59,26 +59,76 @@ void CRightDrawable::drawMeAtDefaultPosition() {
   USBC_template(tft, 275, 52);
 };
 
-void CRightDrawable::drawMeAt(int x, int y) {
+void CRightDrawable::drawMeAt(int x, int y, bool highlight = false) {
   USBC_template(tft, x, y);
 };
 
 void A2Drawable::drawMeAtDefaultPosition() {
   Serial.println("Drawing at default position");
-  this->tft->USB2_A_template();
+
+  tft->setTextColor(tft->WHITE);
+  tft->setTextSize(0);
+  tft->setCursor(20, 15);
+  tft->println("USB A");
+  tft->setCursor(20, 25);
+  tft->println(" v2.0");
+
+  drawMeAt(18, 53);
+
 };
 
-void A2Drawable::drawMeAt(int x, int y) {
-  this->tft->USB2_A_template(x,y);
+void A2Drawable::drawMeAt(int x, int y, bool highlight = false) {
+  int x2 = x + 15;
+
+  if (highlight) {
+    tft->fillRoundRect(x, y, 34, 135, 3, tft->WHITE);
+  }
+
+  tft->fillRect(x2, y+15, 4, 14, tft->YELLOW);
+  tft->fillRect(x2, y+45, 4, 14, tft->YELLOW);
+  tft->fillRect(x2, y+75, 4, 14, tft->YELLOW);
+  tft->fillRect(x2, y+105, 4, 14, tft->YELLOW);
+
+  tft->fillRect(x+3, y+3, 13, 129, tft->WHITE);
+  tft->drawRect(x+3, y+3, 13, 129, tft->BLUE);
+  tft->drawRoundRect(x, y, 34, 135, 3, tft->GREEN);
+  tft->drawRect(x+1, y+1, 32, 133, tft->GREEN);
+
 };
 
 void A3Drawable::drawMeAtDefaultPosition() {
   Serial.println("Drawing at default position");
-  this->tft->USB3_A_template();
+
+  tft->setTextColor(tft->WHITE);
+  tft->setTextSize(0);
+  tft->setCursor(20, 15);
+  tft->println("USB A");
+  tft->setCursor(20, 25);
+  tft->println(" v3.0");
+
+  drawMeAt(18,53);
 };
 
-void A3Drawable::drawMeAt(int x, int y) {
-  this->tft->USB3_A_template(x,y);
+void A3Drawable::drawMeAt(int x, int y, bool highlight = false) {
+
+  if (highlight) {
+    tft->fillRoundRect(x, y, 34, 135, 3, tft->WHITE);
+  }
+
+  tft->fillRect(x + 16, y+12, 7, 7, tft->CYAN);
+  tft->fillRect(x + 16, y+34, 7, 7, tft->CYAN);
+  tft->fillRect(x + 16, y+63, 7, 7, tft->CYAN);
+  tft->fillRect(x + 16, y+92, 7, 7, tft->CYAN);
+  tft->fillRect(x + 16, y+114, 7, 7, tft->CYAN);
+  tft->fillRect(x + 15, y+15, 4, 14, tft->YELLOW);
+  tft->fillRect(x + 15, y+45, 4, 14, tft->YELLOW);
+  tft->fillRect(x + 15, y+75, 4, 14, tft->YELLOW);
+  tft->fillRect(x + 15, y+105, 4, 14, tft->YELLOW);
+
+  tft->fillRect(x+3, y+3, 13, 129, tft->BLUE);
+  tft->drawRect(x+3, y+3, 13, 129, tft->BLACK);
+  tft->drawRoundRect(x, y, 34, 135, 3, tft->GREEN);
+  tft->drawRect(x+1, y+1, 32, 133, tft->GREEN);      
 };
 
 void MiniDrawable::drawMeAtDefaultPosition() {
@@ -86,7 +136,7 @@ void MiniDrawable::drawMeAtDefaultPosition() {
   this->tft->USB_mini_template();
 };
 
-void MiniDrawable::drawMeAt(int x, int y) {
+void MiniDrawable::drawMeAt(int x, int y, bool highlight = false) {
   this->tft->USB_mini_template(x,y);
 };
 
@@ -95,6 +145,6 @@ void MicroDrawable::drawMeAtDefaultPosition() {
   this->tft->USB_micro_template();
 };
 
-void MicroDrawable::drawMeAt(int x, int y) {
+void MicroDrawable::drawMeAt(int x, int y, bool highlight = false) {
   this->tft->USB_micro_template(x,y);
 };

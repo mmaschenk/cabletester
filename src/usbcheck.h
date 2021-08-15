@@ -9,7 +9,7 @@
 class USBDrawable {
   public:
     virtual void drawMeAtDefaultPosition() = 0;
-    virtual void drawMeAt(int x, int y) = 0;
+    virtual void drawMeAt(int x, int y, bool highlight = false) = 0;
 };
 
 enum connectorposition {
