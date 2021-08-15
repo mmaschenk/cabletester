@@ -5,6 +5,13 @@ BaseDrawable::BaseDrawable(LCD_DISPLAY &tft) {
   this->tft = &tft;
 };
 
+void BaseDrawable::drawMeAtDefaultPosition() {
+  drawMeAtDefaultPosition(false);
+};
+
+void BaseDrawable::drawMeAt(int x, int y) {
+  drawMeAt(x, y, false);
+};
 //CLeftDrawable::CLeftDrawable(LCD_DISPLAY &tft): BaseDrawable(tft) {
 //};
 
@@ -28,7 +35,7 @@ void USBC_template(LCD_DISPLAY *tft, int x, int y, bool highlight = false)
   tft->setTextSize(0);
 }
 
-void CLeftDrawable::drawMeAtDefaultPosition() {
+void CLeftDrawable::drawMeAtDefaultPosition(bool highlight) {
   Serial.println("Drawing at default position");
   //this->tft->USBC_Left_template();
   tft->setTextColor(tft->WHITE);
@@ -46,7 +53,7 @@ void CLeftDrawable::drawMeAt(int x, int y, bool highlight = false) {
   USBC_template(tft, x, y);
 };
 
-void CRightDrawable::drawMeAtDefaultPosition() {
+void CRightDrawable::drawMeAtDefaultPosition(bool highlight) {
   Serial.println("Drawing at default position");
   tft->setTextColor(tft->WHITE);
   tft->setTextSize(0);
@@ -63,7 +70,7 @@ void CRightDrawable::drawMeAt(int x, int y, bool highlight = false) {
   USBC_template(tft, x, y);
 };
 
-void A2Drawable::drawMeAtDefaultPosition() {
+void A2Drawable::drawMeAtDefaultPosition(bool highlight) {
   Serial.println("Drawing at default position");
 
   tft->setTextColor(tft->WHITE);
@@ -73,7 +80,7 @@ void A2Drawable::drawMeAtDefaultPosition() {
   tft->setCursor(20, 25);
   tft->println(" v2.0");
 
-  drawMeAt(18, 53);
+  drawMeAt(18, 53, highlight);
 
 };
 
@@ -96,7 +103,7 @@ void A2Drawable::drawMeAt(int x, int y, bool highlight = false) {
 
 };
 
-void A3Drawable::drawMeAtDefaultPosition() {
+void A3Drawable::drawMeAtDefaultPosition(bool highlight) {
   Serial.println("Drawing at default position");
 
   tft->setTextColor(tft->WHITE);
@@ -106,7 +113,7 @@ void A3Drawable::drawMeAtDefaultPosition() {
   tft->setCursor(20, 25);
   tft->println(" v3.0");
 
-  drawMeAt(18,53);
+  drawMeAt(18,53,highlight);
 };
 
 void A3Drawable::drawMeAt(int x, int y, bool highlight = false) {
@@ -131,7 +138,7 @@ void A3Drawable::drawMeAt(int x, int y, bool highlight = false) {
   tft->drawRect(x+1, y+1, 32, 133, tft->GREEN);      
 };
 
-void MiniDrawable::drawMeAtDefaultPosition() {
+void MiniDrawable::drawMeAtDefaultPosition(bool highlight) {
   Serial.println("Drawing at default position");
 
   tft->setTextColor(tft->WHITE);
@@ -141,7 +148,7 @@ void MiniDrawable::drawMeAtDefaultPosition() {
   tft->setCursor(260, 25);
   tft->println(" v2.0");
 
-  drawMeAt(254, 70);
+  drawMeAt(254, 70, highlight);
 };
 
 void MiniDrawable::drawMeAt(int x, int y, bool highlight = false) {
@@ -180,7 +187,7 @@ void MiniDrawable::drawMeAt(int x, int y, bool highlight = false) {
   }
 };
 
-void MicroDrawable::drawMeAtDefaultPosition() {
+void MicroDrawable::drawMeAtDefaultPosition(bool highlight) {
   Serial.println("Drawing at default position");
 
   tft->setTextColor(tft->WHITE);
@@ -190,7 +197,7 @@ void MicroDrawable::drawMeAtDefaultPosition() {
   tft->setCursor(260, 25);
   tft->println(" v2.0");
 
-  drawMeAt(264, 70);
+  drawMeAt(264, 70, highlight);
 };
 
 void MicroDrawable::drawMeAt(int x, int y, bool highlight = false) {
