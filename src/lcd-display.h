@@ -13,8 +13,6 @@ class LCD_DISPLAY : public Adafruit_TFTLCD {
     };
 
     void USBC_template(int x, int y, bool hightlight = false);
-    /*void USBC_Right_template();*/
-    void USBC_Left_template();
     void USB2_A_template(int x, int y, bool highlight = false);
     void USB2_A_template();
     void USB3_A_template(int x, int y, bool highlight = false);

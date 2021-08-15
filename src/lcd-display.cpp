@@ -20,32 +20,6 @@ void LCD_DISPLAY::USBC_template(int x, int y, bool highlight = false)
   setTextSize(0);
 }
 
-/*void LCD_DISPLAY::USBC_Right_template()
-{
-  setTextColor(WHITE);
-  setTextSize(0);
-
-  setCursor(270, 15);
-  println("USB C");
-  setCursor(270, 25);
-  println(" v3.0");
-
-  USBC_template(275, 52);
-}*/
-
-void LCD_DISPLAY::USBC_Left_template()
-{
-  setTextColor(WHITE);
-  setTextSize(0);
-
-  setCursor(20, 15);
-  println("USB C");
-  setCursor(20, 25);
-  println(" v3.0");
-
-  USBC_template(22, 52);
-}
-
 void LCD_DISPLAY::USB2_A_template(int x, int y, bool highlight = false) {
   int x2 = x + 15;
 

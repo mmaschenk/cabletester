@@ -30,7 +30,16 @@ void USBC_template(LCD_DISPLAY *tft, int x, int y, bool highlight = false)
 
 void CLeftDrawable::drawMeAtDefaultPosition() {
   Serial.println("Drawing at default position");
-  this->tft->USBC_Left_template();
+  //this->tft->USBC_Left_template();
+  tft->setTextColor(tft->WHITE);
+  tft->setTextSize(0);
+
+  tft->setCursor(20, 15);
+  tft->println("USB C");
+  tft->setCursor(20, 25);
+  tft->println(" v3.0");
+
+  USBC_template(tft, 22, 52);
 };
 
 void CLeftDrawable::drawMeAt(int x, int y) {
@@ -39,7 +48,6 @@ void CLeftDrawable::drawMeAt(int x, int y) {
 
 void CRightDrawable::drawMeAtDefaultPosition() {
   Serial.println("Drawing at default position");
-  //tft->USBC_Right_template();
   tft->setTextColor(tft->WHITE);
   tft->setTextSize(0);
 
@@ -48,7 +56,7 @@ void CRightDrawable::drawMeAtDefaultPosition() {
   tft->setCursor(270, 25);
   tft->println(" v3.0");
 
-  USBC_template(this->tft, 275, 52);
+  USBC_template(tft, 275, 52);
 };
 
 void CRightDrawable::drawMeAt(int x, int y) {
